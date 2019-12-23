@@ -1,13 +1,12 @@
 import React from 'react';
 import Header from '../header_footer/Header'
 
-const Layout = ({handleLogin, handleLogout, loggedInStatus, children}) => {
+const Layout = ({handleLogin, handleLogout, loggedIn, children}) => {
   return (
     <div>
       <Header
-        handleLogin={handleLogin}
         handleLogout={handleLogout}
-        loggedInStatus={loggedInStatus}
+        loggedIn={loggedIn}
       />
       {children}
     </div>

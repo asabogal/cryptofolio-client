@@ -12,16 +12,17 @@ class Header extends Component {
   }
 
   handleLogout = () => {
-    axios.delete('/logout', {withCredentials: true})
+    axios.delete('http://localhost:3001/logout', {withCredentials: true})
     .then(response => this.props.handleLogout())
     .catch(error => console.log(error))
   }
 
   render() {
+    console.log('header props', this.props)
     return (
       <Container>
         {
-          this.props.loggedInStatus ? <div>
+          this.props.loggedIn ? <div>
             <Logo link="/settings" logo={logo} width='60px' height='60px'/>
           </div> 
         :
@@ -31,7 +32,7 @@ class Header extends Component {
         }
      
         {
-          this.props.loggedInStatus ? <ul>
+          this.props.loggedIn ? <ul>
             <Link to='/dashboard'><li>Dashboard</li></Link>
             <Link to='/settings'><li>Settings</li></Link>
             <Link to='/' onClick={this.handleLogout}><li>Log Out</li></Link> 
