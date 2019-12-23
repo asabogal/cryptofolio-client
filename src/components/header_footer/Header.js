@@ -18,7 +18,6 @@ class Header extends Component {
   }
 
   render() {
-    console.log('header props', this.props)
     return (
       <Container>
         {
