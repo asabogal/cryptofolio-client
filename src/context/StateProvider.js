@@ -9,8 +9,12 @@ class StateProvider extends Component {
     this.state = { 
       loggedIn: false,
       user: '',
+      userCoins: '',
+      selectedCoin: '',
+      active: false,
       handleLogin: this.handleLogin,
-      handleLogout: this.handleLogout
+      handleLogout: this.handleLogout,
+      processLogout: this.processLogout
      };
   }
 
@@ -38,12 +42,17 @@ class StateProvider extends Component {
   }
 
   handleLogout = () => {
-    this.setState({
+    this.setState({ 
     loggedIn: false,
     user: ''
     })
   }
 
+  processLogout = () => {
+    axios.delete('http://localhost:3001/logout', {withCredentials: true})
+    .then(response => this.handleLogout())
+    .catch(error => console.log(error))
+  }
 
   render() {
     return (
