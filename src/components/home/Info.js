@@ -2,46 +2,53 @@ import React from 'react';
 import {Button} from '../utils/Buttons'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
+import {StateContext} from '../../context/StateProvider'
 
-const Info = (props) => {
+
+const Info = () => {
   return (
-    <Container loggedIn={props.loggedIn}>
-      <div>
-        <h1>CRYPTOCURRENCY PORTFOLIO</h1>
-        <h3>Keep track of your favorite Coins </h3>
-        <p>Live, 24/7 Data</p>
-        <p>User Friendly Interface</p>
-        <p>Analytical Tools</p>
-        <br></br>
-      </div>
-      
-      {!props.loggedIn ? 
-        <div>
-        <h1>Get Started</h1>
-        <Link to= '/signup'> 
-          <Button>Sign Up</Button>
-        </Link>
-         <Link to='/login'>
-          <Button>Log In</Button>
-         </Link>
-         </div> 
-        : 
-        null
-      } 
+    <StateContext.Consumer>
+      {context => (
+        <Container loggedIn={context.loggedIn}>
+          <div>
+            <h1>CRYPTOCURRENCY PORTFOLIO</h1>
+            <h3>Keep track of your favorite Coins </h3>
+            <p>Live, 24/7 Data</p>
+            <p>User Friendly Interface</p>
+            <p>Analytical Tools</p>
+            <br></br>
+          </div>
         
-      <div>
-        <Link to='/demo'>
-          <Button 
-            style={{marginTop: '20px'}} 
-            width='260px'
-            height='35px'
-            font='15px'
-            >
-            Demo
-          </Button>
-        </Link>
-      </div>
-    </Container>
+        {!context.loggedIn ? 
+          <div>
+          <h1>Get Started</h1>
+          <Link to= '/signup'> 
+            <Button>Sign Up</Button>
+          </Link>
+          <Link to='/login'>
+            <Button>Log In</Button>
+          </Link>
+          </div> 
+          : 
+          null
+        } 
+          
+        <div>
+          <Link to='/demo'>
+            <Button 
+              style={{marginTop: '20px'}} 
+              width='260px'
+              height='35px'
+              font='15px'
+              >
+              Demo
+            </Button>
+          </Link>
+        </div>
+      </Container>
+      )}
+    </StateContext.Consumer>
+    
   );
 };
 
