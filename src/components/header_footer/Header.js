@@ -1,46 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components'
-import axios from 'axios'
 import {Link} from 'react-router-dom'
 import {Logo} from '../utils/Logos'
 import logo from '../../images/crypto-vault.png'
+import {StateContext} from '../../context/StateProvider'
 
-class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { };
-  }
+const Header = () => {
 
-  handleLogout = () => {
-    axios.delete('http://localhost:3001/logout', {withCredentials: true})
-    .then(response => this.props.handleLogout())
-    .catch(error => console.log(error))
-  }
-
-  render() {
     return (
-      <Container>
-        {
-          this.props.loggedIn ? <div>
-            <Logo link="/settings" logo={logo} width='60px' height='60px'/>
-          </div> 
-        :
-          <div>
-            <Logo link="/" logo={logo} width='60px' height='60px'/>
-          </div> 
-        }
-     
-        {
-          this.props.loggedIn ? <ul>
-            <Link to='/dashboard'><li>Dashboard</li></Link>
-            <Link to='/settings'><li>Settings</li></Link>
-            <Link to='/' onClick={this.handleLogout}><li>Log Out</li></Link> 
-          </ul>  : null
-        }
-      </Container>
+      <StateContext.Consumer>
+        {(context) => (
+          <Container>
+            {
+              context.loggedIn ? 
+              <div>
+                <Logo link="/settings" logo={logo} width='60px' height='60px'/>
+              </div> 
+            :
+              <div>
+                <Logo link="/" logo={logo} width='60px' height='60px'/>
+              </div> 
+            }
+        
+            {
+              context.loggedIn ? 
+              <ul>
+                <Link to='/dashboard'><li>Dashboard</li></Link>
+                <Link to='/settings'><li>Settings</li></Link>
+                <Link to='/' onClick={() => context.processLogout()}><li>Log Out</li></Link> 
+              </ul>  : null
+            }
+          </Container>
+        )}
+      </StateContext.Consumer>
     );
   }
-}
 
 export default Header;
 

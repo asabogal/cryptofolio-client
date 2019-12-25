@@ -1,14 +1,11 @@
 import React from 'react';
 import Header from '../header_footer/Header'
 
-const Layout = ({handleLogout, loggedIn, children}) => {
+const Layout = (props) => {
   return (
     <div>
-      <Header
-        handleLogout={handleLogout}
-        loggedIn={loggedIn}
-      />
-      {children}
+      <Header/>
+      {props.children}
     </div>
   );
 };
